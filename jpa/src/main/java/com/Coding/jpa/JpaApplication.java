@@ -4,10 +4,13 @@ import com.Coding.jpa.models.Author;
 import com.Coding.jpa.models.Video;
 import com.Coding.jpa.repositories.AuthorRepository;
 import com.Coding.jpa.repositories.VideoRepository;
+import com.Coding.jpa.specification.AuthorSpecification;
+import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.domain.Specification;
 
 @SpringBootApplication
 public class JpaApplication {
@@ -16,25 +19,26 @@ public class JpaApplication {
 		SpringApplication.run(JpaApplication.class, args);
 	}
 
-//	@Bean
+	@Bean
 	public CommandLineRunner commandLineRunner(
 			AuthorRepository repository,
 			VideoRepository videorepository
-
 	) {
 		return args -> {
-//			var author = Author.builder()
-//					.firstName("Jack")
-//					.lastName("Doe")
-//					.age(41)
-//					.email("contact@gmail.com")
-//					.build();
-//			repository.save(author);
+			// ... any seeding/updating you need
 
-			var video = Video.builder().name("Video 1").length(5).build();
-			    videorepository.save(video);
+			// now combine the fetch spec with your filters:
+			Specification<Author> spec = Specification
+					.where(AuthorSpecification.fetchCourses())          // fetch the courses eagerly
+					.and(AuthorSpecification.hasAge(70))               // age == 70
+					.and(AuthorSpecification.firstnameContains("el"));  // firstName contains "el"
 
+			repository.findAll(spec)
+					.forEach(System.out::println);               // no more LazyInitializationException!
 		};
 	}
 
-}
+
+	}
+
+
