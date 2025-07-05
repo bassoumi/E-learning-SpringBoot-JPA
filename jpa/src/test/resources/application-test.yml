@@ -7,6 +7,6 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop   # so test data resets every run
+      ddl-auto: create-drop
     database: postgresql
     show-sql: true
