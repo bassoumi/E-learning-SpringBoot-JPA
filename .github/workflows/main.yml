@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: mypassword
           POSTGRES_DB: mydb
         ports:
-          - 5432:5432
+          - 5433:5432
         options: >-
           --health-cmd="pg_isready -U myuser -d mydb"
           --health-interval=10s
@@ -37,7 +37,7 @@ jobs:
 
       - name: Run Tests
         env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/mydb
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5433/mydb
           SPRING_DATASOURCE_USERNAME: myuser
           SPRING_DATASOURCE_PASSWORD: mypassword
         run: mvn -B test -f jpa/pom.xml
