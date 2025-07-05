@@ -35,11 +35,6 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-      - name: Debug: show filesystem
-        run: |
-          echo "PWD=$(pwd)"
-          ls -R .
-
       - name: Run Tests
         env:
           SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/mydb
