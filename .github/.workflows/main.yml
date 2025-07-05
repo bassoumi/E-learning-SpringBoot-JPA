@@ -8,22 +8,23 @@ on:
 
 jobs:
   build-deploy:
-    name: Build and Deploy Spring boot for beginner
-    runs-on: ubuntu-latest  # ✅ corrected typo
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup JDK 17
-        uses: actions/setup-java@v3  # ✅ also fixed `action` → `actions`
+        uses: actions/setup-java@v3
         with:
           distribution: 'corretto'
-          java-version: 17
+          java-version: '17'
 
       - name: Unit Tests
-        run: mvn -B test --file pom.xml
+        working-directory: jpa
+        run: mvn -B test
 
       - name: Build the application
+        working-directory: jpa
         run: |
           mvn clean
-          mvn -B package --file pom.xml
+          mvn -B package
