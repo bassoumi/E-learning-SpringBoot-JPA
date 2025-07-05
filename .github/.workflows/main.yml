@@ -19,15 +19,11 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
-      - name: Debug - Check folder structure
+      - name: Debug - List files
         run: ls -R
 
       - name: Unit Tests
-        working-directory: jpa
-        run: mvn -B test
+        run: mvn -B test -f jpa/pom.xml
 
       - name: Build the application
-        working-directory: jpa
-        run: |
-          mvn clean
-          mvn -B package
+        run: mvn -B package -f jpa/pom.xml
