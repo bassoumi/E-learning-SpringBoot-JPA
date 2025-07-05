@@ -1,4 +1,4 @@
-From openjdk:17-jdk
+FROM openjdk:17-jdk
 
 WORKDIR /app
 COPY jpa/target/jpa-0.0.1-SNAPSHOT.jar /app/springdemo.jar
