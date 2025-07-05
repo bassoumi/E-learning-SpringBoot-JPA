@@ -19,6 +19,9 @@ jobs:
           distribution: 'corretto'
           java-version: '17'
 
+      - name: Debug - Check folder structure
+        run: ls -R
+
       - name: Unit Tests
         working-directory: jpa
         run: mvn -B test
